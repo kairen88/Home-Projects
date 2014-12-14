@@ -1,0 +1,39 @@
+package com.kai.flashcard;
+
+import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+@SuppressLint("ViewHolder") public class CardListAdapter extends ArrayAdapter {
+
+	private final Context context;
+	private final ArrayList<Note> values;
+
+	public CardListAdapter(Context context, ArrayList<Note> values) {
+//		super(context, R.layout.card_row_layout);
+		this.context = context;
+		this.values = values;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View rowView = inflater.inflate(R.layout.card_row_layout, parent, false);
+		TextView tvPrompt = (TextView) rowView.findViewById(R.id.tv_prompt);
+		tvPrompt.setText(values.get(position).getPrompt());
+		
+		TextView tvAnwser = (TextView) rowView.findViewById(R.id.tv_answer);
+		tvAnwser.setText(values.get(position).getAnswer());
+
+		return rowView;
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.kai.flashcard;
+
+public class CardListAdapter {
+
+}

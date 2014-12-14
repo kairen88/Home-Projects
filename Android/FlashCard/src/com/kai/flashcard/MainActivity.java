@@ -1,0 +1,74 @@
+package com.kai.flashcard;
+
+import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+
+public class MainActivity extends ActionBarActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        final ListView listview = (ListView) findViewById(R.id.listview);
+
+        final ArrayList<Note> list = new ArrayList<Note>();
+        
+        list.add(new Note("1 x 5", "5"));
+        list.add(new Note("2 x 5", "10"));
+        list.add(new Note("3 x 5", "15"));
+        list.add(new Note("4 x 5", "20"));
+        list.add(new Note("5 x 5", "25"));
+        
+        final CardListAdapter adapter = new CardListAdapter(this, list);
+        listview.setAdapter(adapter);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+          @SuppressLint("NewApi") @Override
+          public void onItemClick(AdapterView<?> parent, final View view,
+              int position, long id) {
+//            list.remove(item);
+            TextView tvPrompt = (TextView) view.findViewById(R.id.tv_answer);
+            if(tvPrompt.getVisibility() == View.INVISIBLE)
+            	tvPrompt.setVisibility(View.VISIBLE);
+            else
+            	tvPrompt.setVisibility(View.INVISIBLE);
+//            adapter.notifyDataSetChanged();
+//            view.setAlpha(1);
+          }
+
+        });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
